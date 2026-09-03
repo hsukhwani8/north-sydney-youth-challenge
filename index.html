@@ -70,8 +70,14 @@
     .primary:hover { transform: translateY(-1px); box-shadow: 0 15px 28px rgba(245, 158, 11, .3); }
     .primary:active { transform: translateY(1px); }
     .primary:disabled { cursor: wait; opacity: .65; transform: none; }
-    .invite-question { margin: 2px 0 -5px; color: var(--navy); font-size: .9rem; font-weight: 850; line-height: 1.35; }
-    .invite-detail { margin: 0 0 -3px; color: var(--muted); font-size: .79rem; line-height: 1.48; }
+    .invite-card { display: grid; gap: 12px; margin-top: 2px; border: 1px solid #c7e1dc; border-radius: 18px; padding: 17px; background: linear-gradient(145deg, #f6fffc, #f0f7ff); }
+    .invite-kicker { width: fit-content; border-radius: 999px; padding: 5px 9px; color: #0b625b; background: #dff8f2; font-size: .68rem; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
+    .invite-question { margin: 0; color: var(--navy); font-size: 1.04rem; font-weight: 850; line-height: 1.35; }
+    .invite-welcome { margin: -5px 0 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
+    .invite-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin: 0; padding: 0; list-style: none; }
+    .invite-highlights li { position: relative; padding-left: 18px; color: #344054; font-size: .76rem; font-weight: 700; line-height: 1.35; }
+    .invite-highlights li::before { content: "✓"; position: absolute; left: 0; color: var(--teal); font-weight: 900; }
+    .invite-detail { margin: 0; color: var(--muted); font-size: .78rem; line-height: 1.48; }
     .error { min-height: 18px; margin: 0; color: var(--danger); font-size: .8rem; font-weight: 700; }
     .hidden { display: none !important; }
 
@@ -174,6 +180,7 @@
       .game-card, .result-card { padding-inline: 19px; }
       .event-pill { display: none; }
       .benefits { grid-template-columns: 1fr; }
+      .invite-highlights { grid-template-columns: 1fr; }
       .letter-bank { grid-template-columns: repeat(6, minmax(32px, 1fr)); }
       .answer-actions { grid-template-columns: 1fr; }
     }
@@ -214,12 +221,23 @@
             <input id="mobile" name="mobile" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required placeholder="04xx xxx xxx">
           </label>
 
-          <p class="invite-question">Would you like to try an ISKCON Saturday Youth Evening?</p>
-          <p class="invite-detail">Join other young adults at the North Sydney Temple for a relaxed evening of practical spiritual wisdom, honest conversations about real-life challenges, meditation, friendship and opportunities to serve. Come once and see how it feels—there is no pressure. We’ll WhatsApp you the next topic, time and details.</p>
-          <label class="check-row whatsapp-optin">
-            <input id="whatsappOptIn" name="whatsappOptIn" type="checkbox" value="Yes">
-            <span><strong>Yes, send me an invitation and add me to the ISKCON Youth WhatsApp group.</strong> Optional.</span>
-          </label>
+          <div class="invite-card">
+            <span class="invite-kicker">Saturday evenings · North Sydney Temple</span>
+            <p class="invite-question">Would you like to join us one Saturday evening?</p>
+            <p class="invite-welcome">A relaxed space for young adults. Come once and see how it feels—there’s no pressure.</p>
+            <ul class="invite-highlights">
+              <li>Practical spiritual wisdom</li>
+              <li>Conversations without judgement</li>
+              <li>Real-life youth challenges</li>
+              <li>Meditation and friendship</li>
+              <li>Opportunities to serve</li>
+            </ul>
+            <p class="invite-detail">Tick below and we’ll WhatsApp you the next topic, time and details.</p>
+            <label class="check-row whatsapp-optin">
+              <input id="whatsappOptIn" name="whatsappOptIn" type="checkbox" value="Yes">
+              <span><strong>Yes, send me an invitation and add me to the ISKCON Youth WhatsApp group.</strong> Optional.</span>
+            </label>
+          </div>
 
           <p class="error" id="formError" role="alert"></p>
           <button class="primary" id="startButton" type="submit">Sign up &amp; start →</button>
