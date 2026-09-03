@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#102a43">
-  <meta name="description" content="The North Sydney Youth Janmashtami Challenge — seven rebus puzzles, three lives and a gift at the finish.">
-  <title>North Sydney Youth Challenge</title>
+  <meta name="description" content="The ISKCON Youth Janmashtami Challenge — seven rebus puzzles, three lives and a gift at the finish.">
+  <title>ISKCON Youth Challenge</title>
   <style>
     :root {
       --navy: #102a43;
@@ -42,7 +42,7 @@
     .app-shell { width: min(100%, 560px); margin: 0 auto; padding: 18px 16px 34px; }
     .topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
     .brand { display: flex; align-items: center; gap: 10px; color: var(--navy); font-weight: 800; letter-spacing: -.02em; }
-    .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--navy); color: var(--saffron); font-size: 22px; box-shadow: 0 8px 20px rgba(16, 42, 67, .16); }
+    .brand-logo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: white; box-shadow: 0 8px 20px rgba(16, 42, 67, .16); }
     .event-pill { border: 1px solid rgba(16, 42, 67, .14); border-radius: 999px; padding: 8px 11px; color: var(--navy); background: rgba(255, 255, 255, .68); font-size: .78rem; font-weight: 750; }
 
     .card { overflow: hidden; border: 1px solid rgba(16, 42, 67, .11); border-radius: 28px; background: rgba(255, 255, 255, .94); box-shadow: var(--shadow); }
@@ -62,7 +62,7 @@
     .intro { margin: 0 0 22px; color: var(--muted); font-size: .93rem; line-height: 1.5; }
     .form-grid { display: grid; gap: 15px; }
     label { display: grid; gap: 7px; color: #344054; font-size: .84rem; font-weight: 750; }
-    input[type="tel"] { width: 100%; min-height: 50px; border: 1.5px solid var(--line); border-radius: 13px; padding: 0 14px; color: var(--ink); background: var(--white); outline: none; transition: border .16s, box-shadow .16s; }
+    input[type="text"], input[type="tel"] { width: 100%; min-height: 50px; border: 1.5px solid var(--line); border-radius: 13px; padding: 0 14px; color: var(--ink); background: var(--white); outline: none; transition: border .16s, box-shadow .16s; }
     input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(15, 118, 110, .11); }
     .check-row { display: grid; grid-template-columns: 21px 1fr; align-items: start; gap: 10px; color: #475467; font-size: .82rem; line-height: 1.45; font-weight: 500; }
     .check-row input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--teal); }
@@ -182,7 +182,7 @@
 <body>
   <main class="app-shell">
     <div class="topline">
-      <div class="brand"><span class="brand-mark" aria-hidden="true">🦚</span><span>North Sydney Youth</span></div>
+      <div class="brand"><img class="brand-logo" src="assets/iskcon-youth-logo.png" alt="ISKCON Sydney logo"><span>ISKCON Youth</span></div>
       <span class="event-pill">Janmashtami challenge</span>
     </div>
 
@@ -200,22 +200,25 @@
 
       <div class="form-area">
         <h2>Join the challenge</h2>
-        <p class="intro">Share your mobile number, then solve seven rebus puzzles. You start with three lives—the third wrong answer ends the round.</p>
+        <p class="intro">Share your name and mobile number, then solve seven rebus puzzles. You start with three lives—the third wrong answer ends the round.</p>
 
         <form class="form-grid" id="signupForm" name="youth-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
           <input type="hidden" name="form-name" value="youth-signup">
           <input type="hidden" name="participantId" id="participantId">
           <p class="hidden"><label>Do not fill this out: <input name="bot-field"></label></p>
 
+          <label>Name
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" maxlength="60" required placeholder="Your name">
+          </label>
           <label>Mobile number
             <input id="mobile" name="mobile" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required placeholder="04xx xxx xxx">
           </label>
 
-          <p class="invite-question">Would you like an invitation to one of our Saturday youth lectures?</p>
-          <p class="invite-detail">We can share the next topic and time on WhatsApp, and you can chat with the youth team there if you would like more details.</p>
+          <p class="invite-question">Would you like to try an ISKCON Saturday Youth Evening?</p>
+          <p class="invite-detail">Join other young adults at the North Sydney Temple for a relaxed evening of practical spiritual wisdom, honest conversations about real-life challenges, meditation, friendship and opportunities to serve. Come once and see how it feels—there is no pressure. We’ll WhatsApp you the next topic, time and details.</p>
           <label class="check-row whatsapp-optin">
             <input id="whatsappOptIn" name="whatsappOptIn" type="checkbox" value="Yes">
-            <span><strong>Yes, send me an invitation and add me to the North Sydney Youth WhatsApp group.</strong> Optional.</span>
+            <span><strong>Yes, send me an invitation and add me to the ISKCON Youth WhatsApp group.</strong> Optional.</span>
           </label>
 
           <p class="error" id="formError" role="alert"></p>
@@ -777,7 +780,7 @@
       event.preventDefault();
       formError.textContent = '';
       if (!signupForm.checkValidity()) {
-        formError.textContent = 'Please enter your mobile number.';
+        formError.textContent = 'Please enter your name and mobile number.';
         signupForm.reportValidity();
         return;
       }
