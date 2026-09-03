@@ -4,7 +4,7 @@ A single-page, mobile-first Janmashtami engagement game for selected young adult
 
 ## Participant journey
 
-1. The participant signs up before the game. First name and mobile are required, email is optional, and WhatsApp group permission is a separate optional checkbox.
+1. The participant enters only a mobile number before the game. A separate optional checkbox offers an invitation to an upcoming Saturday youth lecture through the WhatsApp group.
 2. The game selects seven rebus puzzles from the supplied reference set while guaranteeing a mixture of interaction styles.
 3. Participants solve puzzles by filling letter slots, arranging word tiles or typing the phrase—there are no multiple-choice answers.
 4. Every participant starts with three lives. A third wrong answer ends the round.
@@ -18,7 +18,7 @@ Connect this repository to Netlify. No build command is required and the publish
 
 Netlify Forms detects two forms:
 
-- `youth-signup` stores contact details, consent, WhatsApp opt-in and an anonymous participant ID.
+- `youth-signup` stores the mobile number, optional WhatsApp invitation choice and an anonymous participant ID. Submission happens in the background so a slow connection does not block the game from starting.
 - `quiz-result` stores the outcome, score and hint usage against the same participant ID.
 
 After deployment, confirm both forms appear under **Forms** in the Netlify dashboard and complete one end-to-end test submission.
