@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#102a43">
-  <meta name="description" content="The North Sydney Youth Janmashtami Challenge — seven questions, three lives and a gift at the finish.">
+  <meta name="description" content="The North Sydney Youth Janmashtami Challenge — seven rebus puzzles, three lives and a gift at the finish.">
   <title>North Sydney Youth Challenge</title>
   <style>
     :root {
@@ -113,17 +113,35 @@
     .puzzle-card .space-ship { display: flex; align-items: center; justify-content: space-between; width: 100%; }
     .puzzle-card .space-line { width: 55%; height: 5px; background: #17202a; }
     .puzzle-card .reverse { transform: scaleX(-1); font-size: clamp(2.7rem, 15vw, 4.8rem); }
-    .options { display: grid; gap: 11px; margin-top: 24px; }
-    .option { display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: 11px; width: 100%; min-height: 58px; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 13px; color: #243b53; background: var(--white); text-align: left; font-weight: 700; transition: border .14s, background .14s, transform .14s; }
-    .option:hover { border-color: #8fb7b1; background: #f3fbf9; transform: translateY(-1px); }
-    .option-letter { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; color: var(--navy); background: #edf2f7; font-size: .78rem; font-weight: 900; }
-    .option.correct { border-color: var(--teal); color: #065f58; background: var(--teal-soft); }
-    .option.correct .option-letter { color: white; background: var(--teal); }
-    .option.wrong { border-color: #e89b96; color: #8f2f2a; background: #fff0ef; }
-    .option.wrong .option-letter { color: white; background: var(--danger); }
-    .option:disabled { cursor: default; transform: none; }
+    .answer-panel { margin-top: 18px; border: 1px solid #dde6ec; border-radius: 16px; padding: 16px; background: #f8fafc; }
+    .mode-label { margin: 0 0 13px; color: var(--teal); font-size: .75rem; font-weight: 850; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+    .letter-slots { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 7px 5px; min-height: 52px; margin-bottom: 16px; }
+    .slot { display: grid; place-items: center; width: 28px; height: 37px; border-bottom: 3px solid #9fb1bf; color: var(--navy); font-size: 1.05rem; font-weight: 900; text-transform: uppercase; }
+    .slot.revealed { border-color: var(--saffron); color: #a35d00; background: #fff8e7; border-radius: 6px 6px 0 0; }
+    .slot-space { width: 13px; }
+    .letter-bank { display: grid; grid-template-columns: repeat(7, minmax(34px, 1fr)); gap: 7px; }
+    .letter-key { min-height: 42px; border: 1px solid #c8d4dd; border-radius: 9px; color: var(--navy); background: white; font-size: .95rem; font-weight: 900; text-transform: uppercase; box-shadow: 0 2px 0 #c8d4dd; }
+    .letter-key:active { transform: translateY(1px); box-shadow: 0 1px 0 #c8d4dd; }
+    .letter-key:disabled { cursor: default; opacity: .28; box-shadow: none; }
+    .bank-tools { display: flex; justify-content: center; gap: 9px; margin-top: 11px; }
+    .mini-button { min-height: 38px; border: 1px solid var(--line); border-radius: 10px; padding: 0 13px; color: #475467; background: white; font-size: .78rem; font-weight: 750; }
+    .typed-input { width: 100%; min-height: 54px; border: 2px solid #b9c7d1; border-radius: 13px; padding: 0 15px; color: var(--navy); background: white; font-size: 1.05rem; font-weight: 750; text-align: center; outline: none; }
+    .typed-input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(15, 118, 110, .11); }
+    .answer-pattern { margin: 0 0 13px; color: #7b8b99; font-size: .88rem; font-weight: 800; letter-spacing: .12em; line-height: 1.7; text-align: center; text-transform: uppercase; }
+    .built-phrase { min-height: 55px; border: 2px dashed #b8c6cf; border-radius: 12px; padding: 11px; color: var(--navy); background: white; font-weight: 850; line-height: 1.7; text-align: center; }
+    .built-phrase.empty { color: #98a2b3; font-size: .84rem; font-weight: 650; }
+    .word-bank { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 13px; }
+    .word-tile { min-height: 42px; border: 1.5px solid #b8c8d3; border-radius: 10px; padding: 0 13px; color: var(--navy); background: white; font-size: .82rem; font-weight: 850; text-transform: uppercase; box-shadow: 0 3px 0 #d3dce2; }
+    .word-tile.selected { opacity: .3; box-shadow: none; }
+    .answer-actions { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 10px; margin-top: 12px; }
+    .hint-button { min-height: 50px; border: 1.5px solid #e0bd70; border-radius: 13px; color: #80520a; background: #fffbeb; font-size: .8rem; font-weight: 800; }
+    .hint-button:disabled { cursor: default; opacity: .55; }
+    .check-button { min-height: 50px; box-shadow: none; }
+    .hint-message { margin: 12px 0 0; border-radius: 10px; padding: 10px 12px; color: #6b4b10; background: #fff7db; font-size: .8rem; line-height: 1.45; text-align: center; }
     .feedback { min-height: 68px; margin-top: 18px; border-radius: 13px; padding: 13px 14px; color: #475467; background: #f5f7f9; font-size: .86rem; line-height: 1.5; }
     .feedback strong { color: var(--navy); }
+    .feedback.correct-feedback { color: #065f58; background: var(--teal-soft); }
+    .feedback.wrong-feedback { color: #8f2f2a; background: #fff0ef; }
     .next-button { margin-top: 13px; }
     .subtle-button { width: 100%; min-height: 48px; border: 1.5px solid var(--line); border-radius: 13px; color: var(--navy); background: white; font-weight: 800; }
 
@@ -137,10 +155,6 @@
     .score-cell span { color: var(--muted); font-size: .74rem; }
     .gift-pass { margin: 0 0 22px; border: 1.5px dashed #d48a08; border-radius: 16px; padding: 17px; color: #713f12; background: #fffbeb; }
     .gift-pass strong { display: block; margin-top: 5px; color: var(--navy); font-size: 1.1rem; letter-spacing: .04em; }
-    .why-card { margin: 0 0 21px; border: 1px solid #badbd6; border-radius: 15px; padding: 15px; color: #24484a; background: #f0fdfa; text-align: left; }
-    .why-card strong { color: var(--navy); }
-    .why-card p { margin: 5px 0 0; font-size: .82rem; line-height: 1.5; }
-    .lead-form { text-align: left; }
     .optional { float: right; color: #98a2b3; font-size: .72rem; font-weight: 600; }
     .whatsapp-optin { border: 1px solid #bbdfc9; border-radius: 13px; padding: 12px; background: #f0fdf4; }
     .community-card { margin-top: 22px; border-radius: 18px; padding: 20px; color: white; background: linear-gradient(145deg, var(--navy-deep), var(--navy)); text-align: left; }
@@ -160,6 +174,8 @@
       .game-card, .result-card { padding-inline: 19px; }
       .event-pill { display: none; }
       .benefits { grid-template-columns: 1fr; }
+      .letter-bank { grid-template-columns: repeat(6, minmax(32px, 1fr)); }
+      .answer-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -172,20 +188,52 @@
 
     <section class="card" id="landingScreen" aria-labelledby="pageTitle">
       <div class="hero">
-        <p class="eyebrow">Seven-question challenge</p>
+        <p class="eyebrow">Seven-puzzle challenge</p>
         <h1 id="pageTitle">Think deeper. Live better.</h1>
         <p class="hero-copy">Test your knowledge, solve seven visual word puzzles and unlock a gift at the finish.</p>
         <div class="challenge-strip" aria-label="Challenge rules">
-          <div class="challenge-stat"><strong>7</strong><span>questions</span></div>
-          <div class="challenge-stat"><strong>2</strong><span>mistakes allowed</span></div>
+          <div class="challenge-stat"><strong>7</strong><span>puzzles</span></div>
+          <div class="challenge-stat"><strong>3</strong><span>lives</span></div>
           <div class="challenge-stat"><strong>1</strong><span>gift to unlock</span></div>
         </div>
       </div>
 
       <div class="form-area">
-        <h2>No signup needed to begin.</h2>
-        <p class="intro">A youth volunteer will hand you the challenge. Pick the phrase represented by each rebus and keep at least one life to unlock the gift.</p>
-        <button class="primary" id="startButton" type="button">Start the challenge →</button>
+        <h2>Join the challenge</h2>
+        <p class="intro">Sign up, then solve seven rebus puzzles. You start with three lives—the third wrong answer ends the round.</p>
+
+        <form class="form-grid" id="signupForm" name="youth-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="youth-signup">
+          <input type="hidden" name="participantId" id="participantId">
+          <p class="hidden"><label>Do not fill this out: <input name="bot-field"></label></p>
+
+          <label>First name
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" maxlength="40" required placeholder="Your first name">
+          </label>
+          <label>Mobile number
+            <input id="mobile" name="mobile" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required placeholder="04xx xxx xxx">
+          </label>
+          <label>Email address <span class="optional">Optional</span>
+            <input id="email" name="email" type="email" autocomplete="email" maxlength="100" placeholder="you@example.com">
+          </label>
+
+          <label class="check-row">
+            <input id="ageConfirm" name="ageConfirmed" type="checkbox" value="Yes" required>
+            <span>I confirm that I am between 18 and 30 years old.</span>
+          </label>
+          <label class="check-row">
+            <input id="contactConsent" name="contactConsent" type="checkbox" value="Yes" required>
+            <span>I’m happy for North Sydney Youth to contact me about Saturday classes, gatherings and service opportunities.</span>
+          </label>
+          <label class="check-row whatsapp-optin">
+            <input id="whatsappOptIn" name="whatsappOptIn" type="checkbox" value="Yes">
+            <span><strong>Yes, please add me to the youth WhatsApp group.</strong> This is optional.</span>
+          </label>
+
+          <p class="error" id="formError" role="alert"></p>
+          <button class="primary" id="startButton" type="submit">Sign up &amp; start →</button>
+        </form>
+        <p class="privacy-note"><span aria-hidden="true">🔒</span><span>Your details are used only for North Sydney Youth follow-up. You can opt out anytime.</span></p>
       </div>
     </section>
 
@@ -201,70 +249,27 @@
       <p class="question-number" id="questionNumber">Question 1 of 7</p>
       <div class="puzzle-card" id="puzzleCard" aria-label="Visual rebus puzzle"></div>
       <h2 class="question-title" id="questionTitle">What phrase does this rebus represent?</h2>
-      <div class="options" id="optionsList"></div>
+      <div class="answer-panel" id="answerPanel"></div>
+      <div class="answer-actions">
+        <button class="hint-button" id="hintButton" type="button">💡 Use one hint</button>
+        <button class="primary check-button" id="checkButton" type="button">Check answer</button>
+      </div>
       <div class="feedback hidden" id="feedbackBox"></div>
       <button class="primary next-button hidden" id="nextButton" type="button">Next question →</button>
     </section>
 
-    <section class="card result-card hidden" id="leadScreen" aria-live="polite" aria-labelledby="leadTitle">
-      <div class="result-mark" id="leadMark" aria-hidden="true">🎁</div>
-      <h2 class="result-title" id="leadTitle">One last step to claim your gift.</h2>
-      <p class="result-copy" id="leadCopy">You’ve completed the challenge. Tell us where to send the Saturday youth program details.</p>
+    <section class="card result-card hidden" id="resultScreen" aria-live="polite" aria-labelledby="resultTitle">
+      <div class="result-mark" id="resultMark" aria-hidden="true">🎁</div>
+      <h2 class="result-title" id="resultTitle">Challenge complete!</h2>
+      <p class="result-copy" id="resultCopy">You made it through the round.</p>
 
       <div class="score-panel">
         <div class="score-cell"><strong id="correctScore">7/7</strong><span>correct answers</span></div>
-        <div class="score-cell"><strong id="mistakeScore">0/2</strong><span>mistakes used</span></div>
+        <div class="score-cell"><strong id="lifeScore">3/3</strong><span>lives remaining</span></div>
       </div>
-
-      <div class="why-card">
-        <strong>Why are we asking?</strong>
-        <p>North Sydney Youth will send you the Saturday evening class details and occasional updates about gatherings, practical wisdom sessions and temple service. No spam, and you can opt out anytime.</p>
-      </div>
-
-      <form class="form-grid lead-form" id="leadForm" name="youth-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-        <input type="hidden" name="form-name" value="youth-signup">
-        <input type="hidden" name="participantId" id="participantId">
-        <input type="hidden" name="quizStatus" id="quizStatus">
-        <input type="hidden" name="correctAnswers" id="correctAnswersField">
-        <input type="hidden" name="wrongAnswers" id="wrongAnswersField">
-        <p class="hidden"><label>Do not fill this out: <input name="bot-field"></label></p>
-
-        <label>First name
-          <input id="firstName" name="firstName" type="text" autocomplete="given-name" maxlength="40" required placeholder="Your first name">
-        </label>
-        <label>Mobile number
-          <input id="mobile" name="mobile" type="tel" autocomplete="tel" maxlength="20" required placeholder="04xx xxx xxx">
-        </label>
-        <label>Email address <span class="optional">Optional</span>
-          <input id="email" name="email" type="email" autocomplete="email" maxlength="100" placeholder="you@example.com">
-        </label>
-
-        <label class="check-row">
-          <input id="ageConfirm" name="ageConfirmed" type="checkbox" value="Yes" required>
-          <span>I confirm that I am between 18 and 30 years old.</span>
-        </label>
-        <label class="check-row">
-          <input id="contactConsent" name="contactConsent" type="checkbox" value="Yes" required>
-          <span>I’m happy for North Sydney Youth to contact me about Saturday classes, gatherings and service opportunities.</span>
-        </label>
-        <label class="check-row whatsapp-optin">
-          <input id="whatsappOptIn" name="whatsappOptIn" type="checkbox" value="Yes">
-          <span><strong>Yes, please add me to the youth WhatsApp group.</strong> This is optional.</span>
-        </label>
-
-        <p class="error" id="formError" role="alert"></p>
-        <button class="primary" id="submitLeadButton" type="submit">Submit &amp; continue →</button>
-      </form>
-      <p class="privacy-note"><span aria-hidden="true">🔒</span><span>Your details are used only for North Sydney Youth follow-up and are submitted securely through this website.</span></p>
-    </section>
-
-    <section class="card result-card hidden" id="confirmationScreen" aria-live="polite" aria-labelledby="confirmationTitle">
-      <div class="result-mark" id="confirmationMark" aria-hidden="true">🎁</div>
-      <h2 class="result-title" id="confirmationTitle">You’re all set!</h2>
-      <p class="result-copy" id="confirmationCopy">Show this screen to a youth volunteer to collect your gift.</p>
 
       <div class="gift-pass" id="giftPass">
-        Gift claim code
+        Show this screen to a youth volunteer
         <strong id="claimCode">GIFT · NSY-0000</strong>
       </div>
 
@@ -284,6 +289,16 @@
 
       <button class="subtle-button restart" id="restartButton" type="button">Ready for the next participant</button>
     </section>
+
+    <form class="hidden" name="quiz-result" method="POST" data-netlify="true" aria-hidden="true">
+      <input type="hidden" name="form-name" value="quiz-result">
+      <input type="hidden" name="participantId">
+      <input type="hidden" name="status">
+      <input type="hidden" name="correctAnswers">
+      <input type="hidden" name="wrongAnswers">
+      <input type="hidden" name="hintsUsed">
+      <input type="hidden" name="completedAt">
+    </form>
   </main>
 
   <script>
@@ -388,14 +403,40 @@
       }
     ];
 
-    const leadForm = document.getElementById('leadForm');
+    const PUZZLE_META = {
+      'Illegal': { mode: 'letters', hint: 'Say the two pictures aloud: “ill” + “eagle”.' },
+      'Split personality': { mode: 'type', hint: 'Look at what the line does to the word.' },
+      'Once in a blue moon': { mode: 'words', hint: 'Notice the colour and where ONCE is placed.' },
+      'Sideways': { mode: 'letters', hint: 'Where are the two copies of WAY positioned?' },
+      'Romantic': { mode: 'type', hint: 'Say each picture aloud: row + man + tick.' },
+      'Holy water': { mode: 'words', hint: 'The word WATER is full of something.' },
+      'Falling apart': { mode: 'letters', hint: 'Watch what the letters in APART are doing.' },
+      'Tenant': { mode: 'letters', hint: 'Count the ants, then say the number and insect together.' },
+      'To be honest': { mode: 'words', hint: 'Read 2B, HO and NEST aloud without pausing.' },
+      'Calculated risk': { mode: 'type', hint: 'RISK is written as if it were a maths problem.' },
+      'Happy holiday': { mode: 'letters', hint: 'Look closely at the face inside HOLIDAY.' },
+      'Together forever': { mode: 'words', hint: 'Combine GET HER, then look at the repeated EVER.' },
+      'No idea': { mode: 'type', hint: 'Which letter is missing from IDEA?' },
+      'Working nine to five': { mode: 'words', hint: 'Count WORKING and then read the word beside it.' },
+      'No one understands': { mode: 'letters', hint: 'Which number is missing under STAND?' },
+      'Too big to ignore': { mode: 'type', hint: 'Count BIG and IGNORE, then read their relationship.' },
+      'Black hole': { mode: 'words', hint: 'There is a literal hole in a colour word.' },
+      'Spaceship': { mode: 'letters', hint: 'What appears before the ship?' },
+      'Welcome back': { mode: 'type', hint: 'WELCOME is facing the opposite direction.' }
+    };
+
+    const WORD_DISTRACTORS = ['over', 'under', 'inside', 'outside', 'little', 'bright', 'water', 'space', 'again', 'always', 'blue', 'working'];
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    const signupForm = document.getElementById('signupForm');
     const formError = document.getElementById('formError');
     const startButton = document.getElementById('startButton');
-    const submitLeadButton = document.getElementById('submitLeadButton');
     const landingScreen = document.getElementById('landingScreen');
     const quizScreen = document.getElementById('quizScreen');
-    const leadScreen = document.getElementById('leadScreen');
-    const confirmationScreen = document.getElementById('confirmationScreen');
+    const resultScreen = document.getElementById('resultScreen');
+    const answerPanel = document.getElementById('answerPanel');
+    const hintButton = document.getElementById('hintButton');
+    const checkButton = document.getElementById('checkButton');
     const nextButton = document.getElementById('nextButton');
     const restartButton = document.getElementById('restartButton');
 
@@ -404,7 +445,11 @@
     let correctAnswers = 0;
     let wrongAnswers = 0;
     let currentParticipantId = '';
+    let currentFirstName = '';
     let passedRound = false;
+    let hintsUsed = 0;
+    let hintUsedForQuestion = false;
+    let interactionState = null;
 
     function createParticipantId() {
       const token = Math.random().toString(36).slice(2, 8).toUpperCase();
@@ -437,11 +482,180 @@
       }
     }
 
+    function normaliseAnswer(value) {
+      return String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function modeFor(item) {
+      return PUZZLE_META[item.answer]?.mode || 'type';
+    }
+
+    function selectRoundQuestions() {
+      const grouped = { letters: [], words: [], type: [] };
+      QUESTION_BANK.forEach((item) => grouped[modeFor(item)].push(item));
+      return shuffle([
+        ...shuffle(grouped.letters).slice(0, 3),
+        ...shuffle(grouped.words).slice(0, 2),
+        ...shuffle(grouped.type).slice(0, 2)
+      ]);
+    }
+
     function updateLives() {
       const livesDisplay = document.getElementById('livesDisplay');
       const livesRemaining = Math.max(0, 3 - wrongAnswers);
       livesDisplay.innerHTML = [0, 1, 2].map((index) => `<span class="${index < livesRemaining ? '' : 'life-lost'}">♥</span>`).join(' ');
       livesDisplay.setAttribute('aria-label', `${livesRemaining} ${livesRemaining === 1 ? 'life' : 'lives'} remaining`);
+    }
+
+    function buildPattern(answer) {
+      const revealed = revealedPositions(answer);
+      return Array.from(answer.toUpperCase()).map((character, index) => {
+        if (character === ' ') return '   ';
+        return revealed.has(index) ? character : '_';
+      }).join(' ');
+    }
+
+    function revealedPositions(answer) {
+      const characters = Array.from(answer.toUpperCase());
+      const positions = [];
+      characters.forEach((character, index) => {
+        if (/[A-Z0-9]/.test(character) && (index === 0 || characters[index - 1] === ' ')) positions.push(index);
+      });
+      const letters = characters.map((character, index) => /[A-Z0-9]/.test(character) ? index : -1).filter((index) => index >= 0);
+      if (letters.length > 6) positions.push(letters[Math.floor(letters.length * .55)]);
+      return new Set(positions);
+    }
+
+    function renderLetterInteraction(item) {
+      const characters = Array.from(item.answer.toUpperCase());
+      const revealed = revealedPositions(item.answer);
+      const missingPositions = characters.map((character, index) => /[A-Z0-9]/.test(character) && !revealed.has(index) ? index : -1).filter((index) => index >= 0);
+      const distractors = shuffle(Array.from(ALPHABET)).slice(0, Math.min(3, Math.max(2, Math.floor(missingPositions.length / 5))));
+      const bank = shuffle([...missingPositions.map((position) => characters[position]), ...distractors]).map((character, index) => ({ character, id: index, used: false }));
+      interactionState = { mode: 'letters', characters, revealed, missingPositions, bank, filled: [] };
+
+      answerPanel.innerHTML = '<p class="mode-label">Tap the missing letters</p><div class="letter-slots" id="letterSlots"></div><div class="letter-bank" id="letterBank"></div><div class="bank-tools"><button class="mini-button" id="undoLetter" type="button">← Undo</button><button class="mini-button" id="clearLetters" type="button">Clear</button></div>';
+      renderLetterState();
+      document.getElementById('undoLetter').addEventListener('click', undoLetter);
+      document.getElementById('clearLetters').addEventListener('click', clearLetters);
+    }
+
+    function renderLetterState() {
+      const slotContainer = document.getElementById('letterSlots');
+      const enteredByPosition = new Map(interactionState.filled.map((entry) => [entry.position, entry.character]));
+      slotContainer.innerHTML = '';
+      interactionState.characters.forEach((character, index) => {
+        const slot = document.createElement('span');
+        if (character === ' ') {
+          slot.className = 'slot-space';
+        } else {
+          slot.className = `slot ${interactionState.revealed.has(index) ? 'revealed' : ''}`;
+          slot.textContent = interactionState.revealed.has(index) ? character : (enteredByPosition.get(index) || '');
+        }
+        slotContainer.appendChild(slot);
+      });
+
+      const bankContainer = document.getElementById('letterBank');
+      bankContainer.innerHTML = '';
+      interactionState.bank.forEach((entry) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'letter-key';
+        button.textContent = entry.character;
+        button.disabled = entry.used || interactionState.filled.length >= interactionState.missingPositions.length;
+        button.addEventListener('click', () => selectLetter(entry.id));
+        bankContainer.appendChild(button);
+      });
+    }
+
+    function selectLetter(bankId) {
+      const entry = interactionState.bank.find((item) => item.id === bankId);
+      if (!entry || entry.used || interactionState.filled.length >= interactionState.missingPositions.length) return;
+      const position = interactionState.missingPositions[interactionState.filled.length];
+      entry.used = true;
+      interactionState.filled.push({ position, character: entry.character, bankId });
+      renderLetterState();
+    }
+
+    function undoLetter() {
+      const removed = interactionState.filled.pop();
+      if (removed) interactionState.bank.find((entry) => entry.id === removed.bankId).used = false;
+      renderLetterState();
+    }
+
+    function clearLetters() {
+      interactionState.filled = [];
+      interactionState.bank.forEach((entry) => { entry.used = false; });
+      renderLetterState();
+    }
+
+    function renderWordInteraction(item) {
+      const answerWords = item.answer.toUpperCase().split(' ');
+      const answerSet = new Set(answerWords.map((word) => word.toLowerCase()));
+      const distractors = shuffle(WORD_DISTRACTORS.filter((word) => !answerSet.has(word))).slice(0, 2).map((word) => word.toUpperCase());
+      const bank = shuffle([...answerWords, ...distractors]).map((word, index) => ({ word, id: index, selected: false }));
+      interactionState = { mode: 'words', answerWords, bank, selectedIds: [] };
+      answerPanel.innerHTML = '<p class="mode-label">Build the phrase in order</p><div class="built-phrase empty" id="builtPhrase">Tap words below</div><div class="word-bank" id="wordBank"></div><div class="bank-tools"><button class="mini-button" id="undoWord" type="button">← Undo</button><button class="mini-button" id="clearWords" type="button">Clear</button></div>';
+      renderWordState();
+      document.getElementById('undoWord').addEventListener('click', undoWord);
+      document.getElementById('clearWords').addEventListener('click', clearWords);
+    }
+
+    function renderWordState() {
+      const selectedEntries = interactionState.selectedIds.map((id) => interactionState.bank.find((entry) => entry.id === id));
+      const built = document.getElementById('builtPhrase');
+      built.textContent = selectedEntries.length ? selectedEntries.map((entry) => entry.word).join(' ') : 'Tap words below';
+      built.classList.toggle('empty', selectedEntries.length === 0);
+
+      const bankContainer = document.getElementById('wordBank');
+      bankContainer.innerHTML = '';
+      interactionState.bank.forEach((entry) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `word-tile ${entry.selected ? 'selected' : ''}`;
+        button.textContent = entry.word;
+        button.addEventListener('click', () => toggleWord(entry.id));
+        bankContainer.appendChild(button);
+      });
+    }
+
+    function toggleWord(id) {
+      const entry = interactionState.bank.find((item) => item.id === id);
+      if (entry.selected) {
+        interactionState.selectedIds = interactionState.selectedIds.filter((selectedId) => selectedId !== id);
+        entry.selected = false;
+      } else if (interactionState.selectedIds.length < interactionState.answerWords.length) {
+        interactionState.selectedIds.push(id);
+        entry.selected = true;
+      }
+      renderWordState();
+    }
+
+    function undoWord() {
+      const id = interactionState.selectedIds.pop();
+      if (id !== undefined) interactionState.bank.find((entry) => entry.id === id).selected = false;
+      renderWordState();
+    }
+
+    function clearWords() {
+      interactionState.selectedIds = [];
+      interactionState.bank.forEach((entry) => { entry.selected = false; });
+      renderWordState();
+    }
+
+    function renderTypeInteraction(item) {
+      interactionState = { mode: 'type' };
+      answerPanel.innerHTML = `<p class="mode-label">Type the full answer</p><p class="answer-pattern">${buildPattern(item.answer)}</p><input class="typed-input" id="typedAnswer" type="text" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Your answer">`;
+      document.getElementById('typedAnswer').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') checkCurrentAnswer();
+      });
+    }
+
+    function renderInteraction(item) {
+      const mode = modeFor(item);
+      if (mode === 'letters') renderLetterInteraction(item);
+      else if (mode === 'words') renderWordInteraction(item);
+      else renderTypeInteraction(item);
     }
 
     function renderQuestion() {
@@ -451,50 +665,61 @@
       document.getElementById('questionTitle').textContent = 'What phrase does this rebus represent?';
       document.getElementById('progressBar').style.width = `${(questionIndex / ROUND_LENGTH) * 100}%`;
       document.getElementById('feedbackBox').classList.add('hidden');
+      document.getElementById('feedbackBox').classList.remove('correct-feedback', 'wrong-feedback');
       nextButton.classList.add('hidden');
+      checkButton.classList.remove('hidden');
+      checkButton.disabled = false;
+      hintButton.disabled = false;
+      hintButton.textContent = '💡 Use one hint';
+      hintUsedForQuestion = false;
       updateLives();
-
-      const answers = shuffle([
-        item.answer,
-        ...shuffle(QUESTION_BANK.filter((question) => question.answer !== item.answer)).slice(0, 3).map((question) => question.answer)
-      ]);
-      const list = document.getElementById('optionsList');
-      list.innerHTML = '';
-      answers.forEach((option, optionIndex) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'option';
-        button.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + optionIndex)}</span><span></span>`;
-        button.lastElementChild.textContent = option;
-        button.dataset.answer = option;
-        button.addEventListener('click', () => answerQuestion(option, button));
-        list.appendChild(button);
-      });
+      renderInteraction(item);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function answerQuestion(selectedAnswer, selectedButton) {
-      const item = roundQuestions[questionIndex];
-      const buttons = Array.from(document.querySelectorAll('#optionsList .option'));
-      buttons.forEach((button) => { button.disabled = true; });
+    function currentAnswer() {
+      if (interactionState.mode === 'letters') {
+        if (interactionState.filled.length < interactionState.missingPositions.length) return '';
+        const characters = [...interactionState.characters];
+        interactionState.filled.forEach((entry) => { characters[entry.position] = entry.character; });
+        return characters.join('');
+      }
+      if (interactionState.mode === 'words') {
+        if (interactionState.selectedIds.length < interactionState.answerWords.length) return '';
+        return interactionState.selectedIds.map((id) => interactionState.bank.find((entry) => entry.id === id).word).join(' ');
+      }
+      return document.getElementById('typedAnswer').value;
+    }
 
-      const isCorrect = selectedAnswer === item.answer;
-      if (isCorrect) {
-        correctAnswers += 1;
-        selectedButton.classList.add('correct');
-      } else {
-        wrongAnswers += 1;
-        selectedButton.classList.add('wrong');
-        const correctButton = buttons.find((button) => button.dataset.answer === item.answer);
-        if (correctButton) correctButton.classList.add('correct');
+    function checkCurrentAnswer() {
+      const item = roundQuestions[questionIndex];
+      const submittedAnswer = currentAnswer();
+      const feedback = document.getElementById('feedbackBox');
+      if (!normaliseAnswer(submittedAnswer)) {
+        feedback.innerHTML = '<strong>Finish your answer first.</strong> Complete the blanks, phrase or text field before checking.';
+        feedback.classList.remove('hidden', 'correct-feedback');
+        feedback.classList.add('wrong-feedback');
+        return;
       }
 
+      const accepted = [item.answer, ...(item.aliases || [])].map(normaliseAnswer);
+      const isCorrect = accepted.includes(normaliseAnswer(submittedAnswer));
+      if (isCorrect) {
+        correctAnswers += 1;
+      } else {
+        wrongAnswers += 1;
+      }
+
+      answerPanel.querySelectorAll('button, input').forEach((control) => { control.disabled = true; });
+      checkButton.disabled = true;
+      checkButton.classList.add('hidden');
+      hintButton.disabled = true;
       updateLives();
       document.getElementById('progressBar').style.width = `${((questionIndex + 1) / ROUND_LENGTH) * 100}%`;
 
-      const feedback = document.getElementById('feedbackBox');
       feedback.innerHTML = `<strong>${isCorrect ? 'Correct.' : `The answer is ${item.answer}.`}</strong> ${item.explanation}`;
-      feedback.classList.remove('hidden');
+      feedback.classList.remove('hidden', 'correct-feedback', 'wrong-feedback');
+      feedback.classList.add(isCorrect ? 'correct-feedback' : 'wrong-feedback');
 
       const hasFailed = wrongAnswers > MAX_ALLOWED_WRONG;
       const isLastQuestion = questionIndex === ROUND_LENGTH - 1;
@@ -502,81 +727,95 @@
       nextButton.classList.remove('hidden');
     }
 
-    function finishRound() {
+    function useHint() {
+      if (hintUsedForQuestion) return;
+      hintUsedForQuestion = true;
+      hintsUsed += 1;
+      hintButton.disabled = true;
+      hintButton.textContent = 'Hint used';
+      const message = document.createElement('p');
+      message.className = 'hint-message';
+      message.textContent = PUZZLE_META[roundQuestions[questionIndex].answer]?.hint || 'Focus on the position, colour and repetition in the clue.';
+      answerPanel.appendChild(message);
+    }
+
+    async function finishRound() {
       passedRound = wrongAnswers <= MAX_ALLOWED_WRONG && questionIndex === ROUND_LENGTH - 1;
-      currentParticipantId = createParticipantId();
       quizScreen.classList.add('hidden');
-      leadScreen.classList.remove('hidden');
+      resultScreen.classList.remove('hidden');
 
       document.getElementById('correctScore').textContent = `${correctAnswers}/${ROUND_LENGTH}`;
-      document.getElementById('mistakeScore').textContent = `${wrongAnswers}/${MAX_ALLOWED_WRONG}`;
-      document.getElementById('participantId').value = currentParticipantId;
-      document.getElementById('quizStatus').value = passedRound ? 'Gift unlocked' : 'Three mistakes';
-      document.getElementById('correctAnswersField').value = String(correctAnswers);
-      document.getElementById('wrongAnswersField').value = String(wrongAnswers);
+      document.getElementById('lifeScore').textContent = `${Math.max(0, 3 - wrongAnswers)}/3`;
 
       if (passedRound) {
-        document.getElementById('leadMark').textContent = '🎁';
-        document.getElementById('leadTitle').textContent = 'You did it — one last step to claim your gift.';
-        document.getElementById('leadCopy').textContent = 'You kept at least one life and completed the challenge. Tell us where to send the Saturday youth program details.';
-        submitLeadButton.textContent = 'Submit & reveal gift code →';
+        document.getElementById('resultMark').textContent = '🎁';
+        document.getElementById('resultTitle').textContent = `Gift unlocked, ${currentFirstName}!`;
+        document.getElementById('resultCopy').textContent = document.getElementById('whatsappOptIn').checked
+          ? 'You completed all seven puzzles. We’ll also add you to the youth WhatsApp group.'
+          : 'You completed all seven puzzles while keeping at least one life.';
+        document.getElementById('giftPass').classList.remove('hidden');
+        document.getElementById('claimCode').textContent = `GIFT · ${currentParticipantId.split('-').pop()}`;
       } else {
-        document.getElementById('leadMark').textContent = '🦚';
-        document.getElementById('leadTitle').textContent = 'Good effort — stay connected.';
-        document.getElementById('leadCopy').textContent = 'The third mistake ended this round, but the invitation to meet the youth team and join us on Saturdays is still open.';
-        submitLeadButton.textContent = 'Submit & stay connected →';
+        document.getElementById('resultMark').textContent = '🦚';
+        document.getElementById('resultTitle').textContent = `Good effort, ${currentFirstName}.`;
+        document.getElementById('resultCopy').textContent = 'The third wrong answer ended this round, but you’re still invited to meet the youth team and join us on Saturdays.';
+        document.getElementById('giftPass').classList.add('hidden');
       }
+
+      const resultData = new FormData();
+      resultData.append('form-name', 'quiz-result');
+      resultData.append('participantId', currentParticipantId);
+      resultData.append('status', passedRound ? 'Gift unlocked' : 'Three wrong answers');
+      resultData.append('correctAnswers', String(correctAnswers));
+      resultData.append('wrongAnswers', String(wrongAnswers));
+      resultData.append('hintsUsed', String(hintsUsed));
+      resultData.append('completedAt', new Date().toISOString());
+      await sendToNetlify(resultData);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function startRound() {
-      roundQuestions = shuffle(QUESTION_BANK).slice(0, ROUND_LENGTH);
+      roundQuestions = selectRoundQuestions();
       questionIndex = 0;
       correctAnswers = 0;
       wrongAnswers = 0;
+      hintsUsed = 0;
       passedRound = false;
       landingScreen.classList.add('hidden');
-      leadScreen.classList.add('hidden');
-      confirmationScreen.classList.add('hidden');
+      resultScreen.classList.add('hidden');
       quizScreen.classList.remove('hidden');
       renderQuestion();
     }
 
-    startButton.addEventListener('click', startRound);
-
-    leadForm.addEventListener('submit', async (event) => {
+    signupForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       formError.textContent = '';
-      if (!leadForm.checkValidity()) {
+      if (!signupForm.checkValidity()) {
         formError.textContent = 'Please enter your name and mobile, then confirm your age and contact permission.';
-        leadForm.reportValidity();
+        signupForm.reportValidity();
         return;
       }
 
-      submitLeadButton.textContent = 'Saving your details…';
-      submitLeadButton.disabled = true;
-      const saved = await sendToNetlify(new FormData(leadForm));
+      currentParticipantId = createParticipantId();
+      currentFirstName = document.getElementById('firstName').value.trim();
+      document.getElementById('participantId').value = currentParticipantId;
+      startButton.textContent = 'Preparing your challenge…';
+      startButton.disabled = true;
+
+      const saved = await sendToNetlify(new FormData(signupForm));
       if (!saved && window.location.protocol !== 'file:') {
         formError.textContent = 'We could not save your details. Please check the connection or ask a youth volunteer for help.';
-        submitLeadButton.textContent = passedRound ? 'Submit & reveal gift code →' : 'Submit & stay connected →';
-        submitLeadButton.disabled = false;
+        startButton.textContent = 'Sign up & start →';
+        startButton.disabled = false;
         return;
       }
-
-      const firstName = document.getElementById('firstName').value.trim();
-      const wantsWhatsApp = document.getElementById('whatsappOptIn').checked;
-      leadScreen.classList.add('hidden');
-      confirmationScreen.classList.remove('hidden');
-      document.getElementById('confirmationTitle').textContent = `Thanks, ${firstName}!`;
-      document.getElementById('confirmationMark').textContent = passedRound ? '🎁' : '🦚';
-      document.getElementById('confirmationCopy').textContent = wantsWhatsApp
-        ? 'We have your details and will add you to the youth WhatsApp group. Follow us on Instagram below.'
-        : 'We have your details and will share the Saturday youth program information with you.';
-      document.getElementById('giftPass').classList.toggle('hidden', !passedRound);
-      document.getElementById('claimCode').textContent = `GIFT · ${currentParticipantId.split('-').pop()}`;
-      submitLeadButton.disabled = false;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      startButton.textContent = 'Sign up & start →';
+      startButton.disabled = false;
+      startRound();
     });
+
+    hintButton.addEventListener('click', useHint);
+    checkButton.addEventListener('click', checkCurrentAnswer);
 
     nextButton.addEventListener('click', () => {
       if (wrongAnswers > MAX_ALLOWED_WRONG || questionIndex === ROUND_LENGTH - 1) {
@@ -588,10 +827,10 @@
     });
 
     restartButton.addEventListener('click', () => {
-      leadForm.reset();
+      signupForm.reset();
       currentParticipantId = '';
-      leadScreen.classList.add('hidden');
-      confirmationScreen.classList.add('hidden');
+      currentFirstName = '';
+      resultScreen.classList.add('hidden');
       quizScreen.classList.add('hidden');
       landingScreen.classList.remove('hidden');
       formError.textContent = '';

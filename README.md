@@ -4,27 +4,25 @@ A single-page, mobile-first Janmashtami engagement game for selected young adult
 
 ## Participant journey
 
-1. A youth volunteer starts the challenge without asking for personal information.
-2. The participant receives seven randomly selected rebus puzzles based on the supplied reference screenshots.
-3. Two wrong answers are allowed. A third wrong answer ends the round.
-4. After the game, the participant sees their result and an explanation of why North Sydney Youth would like their contact details.
-5. First name and mobile are required, email is optional, and WhatsApp group permission is a separate optional checkbox.
-6. Successful participants see a gift claim code after submitting the form.
-7. The final screen links directly to `@iskcon_ns_youth` on Instagram.
+1. The participant signs up before the game. First name and mobile are required, email is optional, and WhatsApp group permission is a separate optional checkbox.
+2. The game selects seven rebus puzzles from the supplied reference set while guaranteeing a mixture of interaction styles.
+3. Participants solve puzzles by filling letter slots, arranging word tiles or typing the phrase—there are no multiple-choice answers.
+4. Every participant starts with three lives. A third wrong answer ends the round.
+5. One optional hint is available for each puzzle, and hint usage is recorded with the result.
+6. Successful participants see a gift claim code after finishing the round.
+7. The final screen promotes Saturday evenings and links directly to `@iskcon_ns_youth` on Instagram.
 
 ## Netlify setup
 
 Connect this repository to Netlify. No build command is required and the publish directory is `.`.
 
-Netlify Forms detects the `youth-signup` form and stores:
+Netlify Forms detects two forms:
 
-- contact details and consent;
-- optional WhatsApp opt-in;
-- anonymous participant ID;
-- quiz result and score.
+- `youth-signup` stores contact details, consent, WhatsApp opt-in and an anonymous participant ID.
+- `quiz-result` stores the outcome, score and hint usage against the same participant ID.
 
-After the first production deployment, confirm `youth-signup` appears under **Forms** in the Netlify dashboard and complete one end-to-end test submission.
+After deployment, confirm both forms appear under **Forms** in the Netlify dashboard and complete one end-to-end test submission.
 
 ## Content
 
-The game currently contains 19 rebus puzzles recreated from the supplied screenshots. Seven are selected randomly for each round. The wording, accepted answers and gift policy should receive a final event-team review before publishing.
+The game currently contains 19 rebus puzzles recreated from the supplied screenshots. Every round contains three letter-slot puzzles, two word-building puzzles and two typed-answer puzzles. The wording, accepted answers and gift policy should receive a final event-team review before publishing.
