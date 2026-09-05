@@ -232,10 +232,10 @@
               <li>Meditation and friendship</li>
               <li>Opportunities to serve</li>
             </ul>
-            <p class="invite-detail">Tick below and we’ll WhatsApp you the next topic, time and details.</p>
+            <p class="invite-detail">Tick below and we’ll open the ISKCON Youth WhatsApp Community when your game starts, so you can join straight away.</p>
             <label class="check-row whatsapp-optin">
               <input id="whatsappOptIn" name="whatsappOptIn" type="checkbox" value="Yes">
-              <span><strong>Yes, send me an invitation and add me to the ISKCON Youth WhatsApp group.</strong> Optional.</span>
+              <span><strong>Yes, open the WhatsApp Community so I can join.</strong> Optional.</span>
             </label>
           </div>
 
@@ -291,6 +291,7 @@
           <li>Practical life values</li>
         </ul>
         <div class="social-actions">
+          <a class="social-link whatsapp" href="https://chat.whatsapp.com/JkYLUAtdw44LgqV8rjcPH3" target="_blank" rel="noopener noreferrer">Join the WhatsApp Community ↗</a>
           <a class="social-link" href="https://www.instagram.com/iskcon_ns_youth/" target="_blank" rel="noopener noreferrer">Follow @iskcon_ns_youth ↗</a>
         </div>
       </div>
@@ -312,6 +313,7 @@
   <script>
     const ROUND_LENGTH = 7;
     const MAX_ALLOWED_WRONG = 2;
+    const WHATSAPP_COMMUNITY_URL = 'https://chat.whatsapp.com/JkYLUAtdw44LgqV8rjcPH3';
 
     const QUESTION_BANK = [
       {
@@ -758,7 +760,7 @@
         document.getElementById('resultMark').textContent = '🎁';
         document.getElementById('resultTitle').textContent = 'Gift unlocked!';
         document.getElementById('resultCopy').textContent = document.getElementById('whatsappOptIn').checked
-          ? 'You completed all seven puzzles. We’ll also add you to the youth WhatsApp group.'
+          ? 'You completed all seven puzzles. If you have not joined yet, the WhatsApp Community link is waiting below.'
           : 'You completed all seven puzzles while keeping at least one life.';
         document.getElementById('giftPass').classList.remove('hidden');
         document.getElementById('claimCode').textContent = `GIFT · ${currentParticipantId.split('-').pop()}`;
@@ -809,6 +811,9 @@
       startButton.disabled = true;
 
       void sendToNetlify(new FormData(signupForm));
+      if (document.getElementById('whatsappOptIn').checked) {
+        window.open(WHATSAPP_COMMUNITY_URL, '_blank', 'noopener,noreferrer');
+      }
       startButton.textContent = 'Sign up & start →';
       startButton.disabled = false;
       startRound();
