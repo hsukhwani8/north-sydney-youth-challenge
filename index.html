@@ -52,10 +52,14 @@
     .eyebrow::before { content: ""; width: 24px; height: 2px; background: currentColor; }
     h1 { max-width: 420px; margin: 0; font-size: clamp(2.35rem, 9.5vw, 4.1rem); line-height: .98; letter-spacing: -.055em; }
     .hero-copy { max-width: 405px; margin: 16px 0 0; color: #dce7ef; font-size: 1rem; line-height: 1.58; }
-    .challenge-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 24px; }
-    .challenge-stat { padding: 12px 8px; border: 1px solid rgba(255,255,255,.13); border-radius: 14px; background: rgba(255,255,255,.08); text-align: center; }
-    .challenge-stat strong { display: block; color: #fff; font-size: 1rem; }
-    .challenge-stat span { color: #bfd0dc; font-size: .72rem; }
+    .how-to { position: relative; z-index: 1; display: grid; gap: 13px; margin-top: 23px; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 17px; background: rgba(255,255,255,.08); }
+    .how-to-title { margin: 0; color: #ffd877; font-size: .77rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .how-steps { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+    .how-steps li { display: grid; grid-template-columns: 29px 1fr; align-items: start; gap: 10px; }
+    .step-number { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; color: var(--navy-deep); background: #ffd877; font-size: .77rem; font-weight: 900; }
+    .how-steps strong { display: block; color: #fff; font-size: .83rem; }
+    .how-steps span:last-child { color: #c9d7e1; font-size: .76rem; line-height: 1.42; }
+    .how-hint { margin: 0; border-top: 1px solid rgba(255,255,255,.12); padding-top: 11px; color: #dce7ef; font-size: .75rem; line-height: 1.4; }
 
     .form-area { padding: 27px 26px 29px; }
     h2 { margin: 0 0 7px; color: var(--navy); font-size: 1.45rem; letter-spacing: -.03em; }
@@ -123,10 +127,10 @@
     .puzzle-card .reverse { transform: scaleX(-1); font-size: clamp(2.7rem, 15vw, 4.8rem); }
     .answer-panel { margin-top: 18px; border: 1px solid #dde6ec; border-radius: 16px; padding: 16px; background: #f8fafc; }
     .mode-label { margin: 0 0 13px; color: var(--teal); font-size: .75rem; font-weight: 850; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
-    .letter-slots { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 7px 5px; min-height: 52px; margin-bottom: 16px; }
-    .slot { display: grid; place-items: center; width: 28px; height: 37px; border-bottom: 3px solid #9fb1bf; color: var(--navy); font-size: 1.05rem; font-weight: 900; text-transform: uppercase; }
+    .letter-slots { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 14px 24px; min-height: 52px; margin-bottom: 16px; }
+    .slot-word { display: inline-flex; align-items: flex-end; justify-content: center; gap: 4px; white-space: nowrap; }
+    .slot { display: grid; place-items: center; width: clamp(20px, 6vw, 28px); height: 37px; border-bottom: 3px solid #9fb1bf; color: var(--navy); font-size: 1.05rem; font-weight: 900; text-transform: uppercase; }
     .slot.revealed { border-color: var(--saffron); color: #a35d00; background: #fff8e7; border-radius: 6px 6px 0 0; }
-    .slot-space { width: 13px; }
     .letter-bank { display: grid; grid-template-columns: repeat(7, minmax(34px, 1fr)); gap: 7px; }
     .letter-key { min-height: 42px; border: 1px solid #c8d4dd; border-radius: 9px; color: var(--navy); background: white; font-size: .95rem; font-weight: 900; text-transform: uppercase; box-shadow: 0 2px 0 #c8d4dd; }
     .letter-key:active { transform: translateY(1px); box-shadow: 0 1px 0 #c8d4dd; }
@@ -135,8 +139,10 @@
     .mini-button { min-height: 38px; border: 1px solid var(--line); border-radius: 10px; padding: 0 13px; color: #475467; background: white; font-size: .78rem; font-weight: 750; }
     .typed-input { width: 100%; min-height: 54px; border: 2px solid #b9c7d1; border-radius: 13px; padding: 0 15px; color: var(--navy); background: white; font-size: 1.05rem; font-weight: 750; text-align: center; outline: none; }
     .typed-input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(15, 118, 110, .11); }
-    .answer-pattern { margin: 0 0 13px; color: #7b8b99; font-size: .88rem; font-weight: 800; letter-spacing: .12em; line-height: 1.7; text-align: center; text-transform: uppercase; }
-    .built-phrase { min-height: 55px; border: 2px dashed #b8c6cf; border-radius: 12px; padding: 11px; color: var(--navy); background: white; font-weight: 850; line-height: 1.7; text-align: center; }
+    .answer-pattern { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 24px; margin: 0 0 13px; color: #7b8b99; font-size: .88rem; font-weight: 800; letter-spacing: .12em; line-height: 1.7; text-align: center; text-transform: uppercase; }
+    .pattern-word { white-space: nowrap; }
+    .built-phrase { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; min-height: 55px; border: 2px dashed #b8c6cf; border-radius: 12px; padding: 11px; color: var(--navy); background: white; font-weight: 850; line-height: 1.7; text-align: center; }
+    .built-word { border-radius: 8px; padding: 2px 8px; background: #edf7f5; }
     .built-phrase.empty { color: #98a2b3; font-size: .84rem; font-weight: 650; }
     .word-bank { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 13px; }
     .word-tile { min-height: 42px; border: 1.5px solid #b8c8d3; border-radius: 10px; padding: 0 13px; color: var(--navy); background: white; font-size: .82rem; font-weight: 850; text-transform: uppercase; box-shadow: 0 3px 0 #d3dce2; }
@@ -196,19 +202,23 @@
 
     <section class="card" id="landingScreen" aria-labelledby="pageTitle">
       <div class="hero">
-        <p class="eyebrow">Seven-puzzle challenge</p>
+        <p class="eyebrow">Visual word puzzle</p>
         <h1 id="pageTitle">Think deeper. Live better.</h1>
-        <p class="hero-copy">Test your knowledge, solve seven visual word puzzles and unlock a gift at the finish.</p>
-        <div class="challenge-strip" aria-label="Challenge rules">
-          <div class="challenge-stat"><strong>7</strong><span>puzzles</span></div>
-          <div class="challenge-stat"><strong>3</strong><span>lives</span></div>
-          <div class="challenge-stat"><strong>1</strong><span>gift to unlock</span></div>
+        <p class="hero-copy">This is a rebus challenge. Pictures, letters, spacing and position work together to hide a familiar word or phrase.</p>
+        <div class="how-to" aria-label="How to play">
+          <p class="how-to-title">How to play</p>
+          <ol class="how-steps">
+            <li><span class="step-number">1</span><span><strong>Look closely</strong>Every picture, letter and position could be a clue.</span></li>
+            <li><span class="step-number">2</span><span><strong>Work out the phrase</strong>Say what the visual clue represents.</span></li>
+            <li><span class="step-number">3</span><span><strong>Enter your answer</strong>Fill the missing letters, arrange the words or type the phrase.</span></li>
+          </ol>
+          <p class="how-hint">Not sure? Use the hint button for a little help.</p>
         </div>
       </div>
 
       <div class="form-area">
         <h2>Join the challenge</h2>
-        <p class="intro">Share your name and mobile number, then solve seven rebus puzzles. You start with three lives—the third wrong answer ends the round.</p>
+        <p class="intro">Enter your details below and see how many visual phrases you can solve.</p>
 
         <form class="form-grid" id="signupForm" name="youth-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
           <input type="hidden" name="form-name" value="youth-signup">
@@ -223,9 +233,9 @@
           </label>
 
           <div class="invite-card">
-            <span class="invite-kicker">Saturday evenings · North Sydney Temple</span>
-            <p class="invite-question">Would you like to join us one Saturday evening?</p>
-            <p class="invite-welcome">A relaxed space for young adults. Come once and see how it feels—there’s no pressure.</p>
+            <span class="invite-kicker">ISKCON Youth Community</span>
+            <p class="invite-question">Would you like to join the youth group?</p>
+            <p class="invite-welcome">We meet Saturdays at 4 PM at North Sydney Temple. Come once, meet everyone and see how it feels—there’s no pressure or weekly commitment.</p>
             <ul class="invite-highlights">
               <li>Games &amp; entertainment</li>
               <li>Hangouts, hikes &amp; coastal walks</li>
@@ -520,10 +530,18 @@
 
     function buildPattern(answer) {
       const revealed = revealedPositions(answer);
-      return Array.from(answer.toUpperCase()).map((character, index) => {
-        if (character === ' ') return '   ';
-        return revealed.has(index) ? character : '_';
-      }).join(' ');
+      const words = [];
+      let currentWord = [];
+      Array.from(answer.toUpperCase()).forEach((character, index) => {
+        if (character === ' ') {
+          if (currentWord.length) words.push(currentWord.join(' '));
+          currentWord = [];
+        } else {
+          currentWord.push(revealed.has(index) ? character : '_');
+        }
+      });
+      if (currentWord.length) words.push(currentWord.join(' '));
+      return words.map((word) => `<span class="pattern-word">${word}</span>`).join('');
     }
 
     function revealedPositions(answer) {
@@ -545,7 +563,7 @@
       const bank = shuffle([...missingPositions.map((position) => characters[position]), ...distractors]).map((character, index) => ({ character, id: index, used: false }));
       interactionState = { mode: 'letters', characters, revealed, missingPositions, bank, filled: [] };
 
-      answerPanel.innerHTML = '<p class="mode-label">Tap the missing letters</p><div class="letter-slots" id="letterSlots"></div><div class="letter-bank" id="letterBank"></div><div class="bank-tools"><button class="mini-button" id="undoLetter" type="button">← Undo</button><button class="mini-button" id="clearLetters" type="button">Clear</button></div>';
+      answerPanel.innerHTML = '<p class="mode-label">Tap the missing letters · each group is one word</p><div class="letter-slots" id="letterSlots"></div><div class="letter-bank" id="letterBank"></div><div class="bank-tools"><button class="mini-button" id="undoLetter" type="button">← Undo</button><button class="mini-button" id="clearLetters" type="button">Clear</button></div>';
       renderLetterState();
       document.getElementById('undoLetter').addEventListener('click', undoLetter);
       document.getElementById('clearLetters').addEventListener('click', clearLetters);
@@ -555,16 +573,21 @@
       const slotContainer = document.getElementById('letterSlots');
       const enteredByPosition = new Map(interactionState.filled.map((entry) => [entry.position, entry.character]));
       slotContainer.innerHTML = '';
+      let wordContainer = document.createElement('span');
+      wordContainer.className = 'slot-word';
       interactionState.characters.forEach((character, index) => {
-        const slot = document.createElement('span');
         if (character === ' ') {
-          slot.className = 'slot-space';
-        } else {
-          slot.className = `slot ${interactionState.revealed.has(index) ? 'revealed' : ''}`;
-          slot.textContent = interactionState.revealed.has(index) ? character : (enteredByPosition.get(index) || '');
+          if (wordContainer.childElementCount) slotContainer.appendChild(wordContainer);
+          wordContainer = document.createElement('span');
+          wordContainer.className = 'slot-word';
+          return;
         }
-        slotContainer.appendChild(slot);
+        const slot = document.createElement('span');
+        slot.className = `slot ${interactionState.revealed.has(index) ? 'revealed' : ''}`;
+        slot.textContent = interactionState.revealed.has(index) ? character : (enteredByPosition.get(index) || '');
+        wordContainer.appendChild(slot);
       });
+      if (wordContainer.childElementCount) slotContainer.appendChild(wordContainer);
 
       const bankContainer = document.getElementById('letterBank');
       bankContainer.innerHTML = '';
@@ -615,7 +638,17 @@
     function renderWordState() {
       const selectedEntries = interactionState.selectedIds.map((id) => interactionState.bank.find((entry) => entry.id === id));
       const built = document.getElementById('builtPhrase');
-      built.textContent = selectedEntries.length ? selectedEntries.map((entry) => entry.word).join(' ') : 'Tap words below';
+      built.innerHTML = '';
+      if (selectedEntries.length) {
+        selectedEntries.forEach((entry) => {
+          const word = document.createElement('span');
+          word.className = 'built-word';
+          word.textContent = entry.word;
+          built.appendChild(word);
+        });
+      } else {
+        built.textContent = 'Tap words below';
+      }
       built.classList.toggle('empty', selectedEntries.length === 0);
 
       const bankContainer = document.getElementById('wordBank');
@@ -656,7 +689,7 @@
 
     function renderTypeInteraction(item) {
       interactionState = { mode: 'type' };
-      answerPanel.innerHTML = `<p class="mode-label">Type the full answer</p><p class="answer-pattern">${buildPattern(item.answer)}</p><input class="typed-input" id="typedAnswer" type="text" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Your answer">`;
+      answerPanel.innerHTML = `<p class="mode-label">Type the full answer · each group is one word</p><p class="answer-pattern">${buildPattern(item.answer)}</p><input class="typed-input" id="typedAnswer" type="text" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Your answer">`;
       document.getElementById('typedAnswer').addEventListener('keydown', (event) => {
         if (event.key === 'Enter') checkCurrentAnswer();
       });
