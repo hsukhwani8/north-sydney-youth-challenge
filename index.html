@@ -52,10 +52,14 @@
     .eyebrow::before { content: ""; width: 24px; height: 2px; background: currentColor; }
     h1 { max-width: 420px; margin: 0; font-size: clamp(2.35rem, 9.5vw, 4.1rem); line-height: .98; letter-spacing: -.055em; }
     .hero-copy { max-width: 405px; margin: 16px 0 0; color: #dce7ef; font-size: 1rem; line-height: 1.58; }
-    .challenge-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 24px; }
-    .challenge-stat { padding: 12px 8px; border: 1px solid rgba(255,255,255,.13); border-radius: 14px; background: rgba(255,255,255,.08); text-align: center; }
-    .challenge-stat strong { display: block; color: #fff; font-size: 1rem; }
-    .challenge-stat span { color: #bfd0dc; font-size: .72rem; }
+    .how-to { position: relative; z-index: 1; display: grid; gap: 13px; margin-top: 23px; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 17px; background: rgba(255,255,255,.08); }
+    .how-to-title { margin: 0; color: #ffd877; font-size: .77rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .how-steps { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+    .how-steps li { display: grid; grid-template-columns: 29px 1fr; align-items: start; gap: 10px; }
+    .step-number { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; color: var(--navy-deep); background: #ffd877; font-size: .77rem; font-weight: 900; }
+    .how-steps strong { display: block; color: #fff; font-size: .83rem; }
+    .how-steps span:last-child { color: #c9d7e1; font-size: .76rem; line-height: 1.42; }
+    .how-hint { margin: 0; border-top: 1px solid rgba(255,255,255,.12); padding-top: 11px; color: #dce7ef; font-size: .75rem; line-height: 1.4; }
 
     .form-area { padding: 27px 26px 29px; }
     h2 { margin: 0 0 7px; color: var(--navy); font-size: 1.45rem; letter-spacing: -.03em; }
@@ -196,19 +200,23 @@
 
     <section class="card" id="landingScreen" aria-labelledby="pageTitle">
       <div class="hero">
-        <p class="eyebrow">Seven-puzzle challenge</p>
+        <p class="eyebrow">Visual word puzzle</p>
         <h1 id="pageTitle">Think deeper. Live better.</h1>
-        <p class="hero-copy">Test your knowledge, solve seven visual word puzzles and unlock a gift at the finish.</p>
-        <div class="challenge-strip" aria-label="Challenge rules">
-          <div class="challenge-stat"><strong>7</strong><span>puzzles</span></div>
-          <div class="challenge-stat"><strong>3</strong><span>lives</span></div>
-          <div class="challenge-stat"><strong>1</strong><span>gift to unlock</span></div>
+        <p class="hero-copy">This is a rebus challenge. Pictures, letters, spacing and position work together to hide a familiar word or phrase.</p>
+        <div class="how-to" aria-label="How to play">
+          <p class="how-to-title">How to play</p>
+          <ol class="how-steps">
+            <li><span class="step-number">1</span><span><strong>Look closely</strong>Every picture, letter and position could be a clue.</span></li>
+            <li><span class="step-number">2</span><span><strong>Work out the phrase</strong>Say what the visual clue represents.</span></li>
+            <li><span class="step-number">3</span><span><strong>Enter your answer</strong>Fill the missing letters, arrange the words or type the phrase.</span></li>
+          </ol>
+          <p class="how-hint">Not sure? Use the hint button for a little help.</p>
         </div>
       </div>
 
       <div class="form-area">
         <h2>Join the challenge</h2>
-        <p class="intro">Share your name and mobile number, then solve seven rebus puzzles. You start with three lives—the third wrong answer ends the round.</p>
+        <p class="intro">Enter your details below and see how many visual phrases you can solve.</p>
 
         <form class="form-grid" id="signupForm" name="youth-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
           <input type="hidden" name="form-name" value="youth-signup">
